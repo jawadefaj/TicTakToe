@@ -38,6 +38,7 @@ namespace AssemblyCSharp
 		{
 			if (eventObj.getResult () == 0) {
 				WarpClient.GetInstance ().SubscribeLobby ();
+				Log("lobby subscribed");
 			} else
 				Log ("On Connect Done "+eventObj.getResult ().ToString());
 		}
@@ -70,11 +71,18 @@ namespace AssemblyCSharp
 		
 		public void onSubscribeLobbyDone (LobbyEvent eventObj)
 		{
-			if (eventObj.getResult () == 0) {
+			if (eventObj.getResult () == 0) 
+			{
+				AppWarpManager.instance.isConnected=true;
+				Log("subscription successful");
+			}
+		}
+			/*if (eventObj.getResult () == 0) {
 				WarpClient.GetInstance ().GetAllRooms ();
 			} else
 				Log (eventObj.getResult ().ToString());
-		}
+				}*/
+
 		
 		public void onUnSubscribeLobbyDone (LobbyEvent eventObj)
 		{
@@ -145,8 +153,19 @@ namespace AssemblyCSharp
 		
 		public void onJoinRoomDone (RoomEvent eventObj)
 		{
+			if (eventObj.getResult () == 0)
+			{
+				WarpClient.GetInstance ().SubscribeRoom (eventObj.getData ().getId());
+				WarpClient.GetInstance().UnsubscribeLobby();
+			}
+			else 
+			{
+				string RoomName = "Room"+ UnityEngine.Random.Range(1,1000).ToString(); 
+				
+				WarpClient.GetInstance().CreateTurnRoom(RoomName,AppWarpManager.instance.UserName,2,null,30);
+			}
 			Log ("On join room done " + eventObj.getResult ());
-			WarpClient.GetInstance ().SubscribeRoom (eventObj.getData ().getId());
+
 
 		}
 		
@@ -189,7 +208,7 @@ namespace AssemblyCSharp
 		}
 		void onSendMoveDone(byte result)
 		{
-
+			Log ("on send move done" + result.ToString ());
 		}
 		void onStartGameDone(byte result)
 		{
@@ -231,7 +250,11 @@ namespace AssemblyCSharp
 		//NotifyListener
 		public void onRoomCreated (RoomData eventObj)
 		{
-			Log ("onRoomCreated "+ eventObj.getId()+ " " +eventObj.getRoomOwner ());	
+			
+			Log ("onRoomCreated "+ eventObj.getId()+ " " +eventObj.getRoomOwner ());
+			if (eventObj != null) {
+				WarpClient.GetInstance().JoinRoom(eventObj.getId());
+			}
 		}
 		public void onPrivateUpdateReceived (string sender, byte[] update, bool fromUdp)
 		{
@@ -280,6 +303,13 @@ namespace AssemblyCSharp
 		
 		public void onMoveCompleted(MoveEvent move)
 		{
+			Log (move.getMoveData());
+			/*string Move = move.getMoveData ();
+			int i = int.Parse (Move [0].ToString());
+			int j = int.Parse (Move [1].ToString());
+			int k = int.Parse (Move [2].ToString());
+			Log (i + "  " + j + "  " + k);
+			*/
 
 		}
 		
@@ -288,7 +318,7 @@ namespace AssemblyCSharp
 
 
 				Log (eventObj.getSender () + " sended " + eventObj.getMessage ());
-				string Message = eventObj.getMessage ();
+				/*string Message = eventObj.getMessage ();
 				if (Message [0] == '*' && Message [1] == '*') {
 					char x = Message [2];
 					char y = Message [3];
@@ -305,8 +335,9 @@ namespace AssemblyCSharp
 						GameControl.Board [X, Y] = Z;
 						GameControl.Move = true;
 					}
+					*/
 
-			}
+
 
 		}
 		
@@ -335,6 +366,7 @@ namespace AssemblyCSharp
 		
 		public void onGameStarted(string started, string id, string nextTurn)
 		{
+			Log (nextTurn + "  \n " + id + " \n " + started);
 
 		}
 		
@@ -354,7 +386,7 @@ namespace AssemblyCSharp
 		{
 
 		}
-		/*public void onInvokeZoneRPCDone(RPCEvent rEvent)
+		public void onInvokeZoneRPCDone(RPCEvent rEvent)
 		{
 
 		}
@@ -367,7 +399,7 @@ namespace AssemblyCSharp
 		public void onDeleteRoomDone(RPCEvent rEvent)
 		{
 
-		}*/
+		}
 		
 	}
 }

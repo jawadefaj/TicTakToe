@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{FB112415-DF37-FFF0-193C-C41C1F943A0D}</ProjectGuid>
+	<ProjectGuid>{48CB44C2-B7DF-DE65-34A1-6B51AB045208}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>E:/unity 5/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>E:/unity 5/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -53,13 +53,13 @@
      <Compile Include="Assets\Script\MyClient.cs" />
      <Compile Include="Assets\Script\ZeroControl.cs" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/unity 5/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="App42_Unity3D_SDK_2.9">
- <HintPath>D:/WorkFolder/Multiplayer/tictactoe/test1/Assets/App42_Unity3D_SDK_2.9.dll</HintPath>
+ <HintPath>E:/Version Controlling/ticktack/Assets/App42_Unity3D_SDK_2.9.dll</HintPath>
  </Reference>
- <Reference Include="AppWarpUnity">
- <HintPath>D:/WorkFolder/Multiplayer/tictactoe/test1/Assets/AppWarpUnity.dll</HintPath>
+ <Reference Include="AppWarpS2Unity">
+ <HintPath>E:/Version Controlling/ticktack/Assets/AppWarpS2Unity.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

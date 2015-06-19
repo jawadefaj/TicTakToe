@@ -27,14 +27,15 @@ public class AppWarpManager : MonoBehaviour {
 	//public static int port= 12346;
 
 	//settings for EC@ AppWarpS2 Server
-	public static string apiKey_s2 ="3a018aeb-6bc3-4b92-8";
-	public static string address="54.186.177.108";
+	public static string apiKey_s2 ="d92ae62a-63a9-4052-a";
+	public static string address="127.0.0.1";
 	public static int port= 12346;
 
 	public bool isConnected=false;
 	internal int responseToGet=0;
 	internal int frndsInfoToCollect=0;
 	AppWarpListener listen = new AppWarpListener();
+	public string UserName= "Jawad";
 	
 	//saved commands
 	internal List<string> savedMsgd = new List<string>();
@@ -61,8 +62,8 @@ public class AppWarpManager : MonoBehaviour {
 		//WarpClient.initialize(apiKey,secretKey);
 
 		//to connect to appwarps2 server on my pc
-		//WarpClient.initialize (apiKey_s2,address,port);
-		WarpClient.initialize (apiKey, secretKey);
+		WarpClient.initialize (apiKey_s2,address,port);
+		//WarpClient.initialize (apiKey, secretKey);
 
 		WarpClient.setRecoveryAllowance (0); //max recovery time set
 		WarpClient.GetInstance().AddConnectionRequestListener(listen);
@@ -74,7 +75,8 @@ public class AppWarpManager : MonoBehaviour {
 		WarpClient.GetInstance().AddZoneRequestListener(listen);
 
 		//connect
-		WarpClient.GetInstance ().Connect ("jawad");
+		UserName = UserName + UnityEngine.Random.Range (1, 1000).ToString();
+		WarpClient.GetInstance ().Connect (UserName, "");
 
 
 	}
@@ -82,19 +84,23 @@ public class AppWarpManager : MonoBehaviour {
 	void Update()
 	{
 		WarpClient.GetInstance ().Update ();
+		//WarpClient.GetInstance ().SendChat ("this is from me");
 
 
 	}
 
 	public static void MoveAfterMove(int a, int b)
 	{
-		if (GameControl.Move && GameControl.Board[a, b]==-1)
+		if (true)
 		{
+			Debug.Log("inside move after move");
 			//GameControl.Board [a, b] = 1;
 			//GameControl.Move = false;
-			WarpClient.GetInstance().SendChat("**"+a+""+b+""+"1");
+			WarpClient.GetInstance().SendChat(a+"\t"+b+"\t");
+			WarpClient.GetInstance().sendMove(a.ToString()+""+b.ToString()+""+"1");
 
 		}
+
 		/*else if( GameControl.Move==false && GameControl.Board[a, b]==-1)
 		{
 			//GameControl.Board[a, b]=0;
@@ -116,6 +122,16 @@ public class AppWarpManager : MonoBehaviour {
 			//GUI.Label (new Rect(20,20,100,100),text);
 
 
+		}
+		if (isConnected) 
+		{
+			if(GUI.Button(new Rect(10,20,80,50),"join room"))
+			{
+				WarpClient.GetInstance().JoinRoomInRange(0,1,true);
+				string RoomName = "Room"+ UnityEngine.Random.Range(1,1000).ToString(); 
+
+				//WarpClient.GetInstance().CreateTurnRoom(RoomName,UserName,2,null,30);
+			}
 		}
 
 	}

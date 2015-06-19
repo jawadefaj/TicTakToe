@@ -36,6 +36,7 @@ public class GameControl : MonoBehaviour {
 			Vector3 mouseposition = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x,Input.mousePosition.y,0));
 			int mouseY = (int)(Mathf.Floor((float)((mouseposition.x+3.33)/2.23)));
 			int mouseX=(int)(Mathf.Floor((float)(-(mouseposition.y-5.0f)/2.5)));
+
 			//Debug.Log(mouseX+"\t\t"+mouseY );
 			if(mouseX<3)
 			{
